@@ -2,9 +2,13 @@
 @{
     ViewData["Title"] = "Home Page";
     var welcome = TempData["UserRole"];
+    var logout = TempData["Logout"];
+    var messlogout = TempData["MessLogut"];
 }
 
 <div class="text-center">
     <h1 class="display-4">Kính chào @welcome đến với shop</h1>
+    <h2>@logout</h2>
+    <h2>@messlogout</h2>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

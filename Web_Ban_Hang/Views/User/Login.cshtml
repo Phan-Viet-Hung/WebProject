@@ -1,5 +1,9 @@
 ﻿@model Web_Ban_Hang.Models.User
-
+@{
+    var invalidphone = TempData["invalidPhone"];
+    var invalidpassword = TempData["invalidPassword"];
+    var invalid = TempData["invalid"];
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +25,16 @@
                                 <label for="PhoneNumber">Phone Number</label>
                                 @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Enter your phone number" })
                                 @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                                @invalidphone
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="Password">Password</label>
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter your password" })
                                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                @invalidpassword
                             </div>
-
+                            @invalid
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-primary w-100">Login</button>
                             </div>

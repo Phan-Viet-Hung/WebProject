@@ -17,7 +17,15 @@ namespace Web_Ban_Hang.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("IndexShop", "Home");
+            if (HttpContext.Session.ToString() == null)
+            {
+                TempData["Logout"] = "Bạn đã đăng xuất thành công";
+            }
+            else
+            {
+                TempData["MessLogout"] = "Đăng xuất thất bại, bạn chưa đăng nhập à";
+            }
+            return RedirectToAction("Index", "Home");
         }
 
 

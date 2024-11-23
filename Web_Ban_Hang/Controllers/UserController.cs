@@ -23,7 +23,7 @@ namespace Web_Ban_Hang.Controllers
             var actionName = context.RouteData.Values["action"]?.ToString();
 
             // Kiểm tra nếu không phải action cần kiểm tra role
-            if (actionName != "Login" && actionName != "Register" && actionName != "Logout") // Nếu là action Login và Register không cần kiểm tra role
+            if (actionName != "Login" && actionName != "Register") // Nếu là action Login và Register không cần kiểm tra role
             {
                 // Kiểm tra nếu vai trò là null hoặc không hợp lệ
                 if (role == null)
@@ -33,11 +33,16 @@ namespace Web_Ban_Hang.Controllers
                 else if (role == 1) // Nếu là admin
                 {
                     var controllerName = context.RouteData.Values["controller"]?.ToString();
-                    if (controllerName != "User" || actionName != "Index")
+                    if (controllerName == "User" && (actionName == "Index" || actionName == "Details" || actionName == "Create" || actionName == "Edit"))
                     {
-                        context.Result = RedirectToAction("Index", "User");
+                        // Cho phép admin truy cập vào các action cần thiết
+                        base.OnActionExecuting(context);
+                        return;
                     }
+
+                    context.Result = RedirectToAction("Index", "User");
                 }
+
                 else if (role == 0) // Nếu là khách
                 {
                     context.Result = Content("Bạn không có quyền truy cập vào trang này");
@@ -58,37 +63,39 @@ namespace Web_Ban_Hang.Controllers
             base.OnActionExecuting(context);
         }
 
-        [HttpGet]
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
-        }
-
 
 
         // GET: UserController
-        public ActionResult Index(string name,int page = 5, int pageSize = 5)
+        public ActionResult Index(string name, int page = 1, int pageSize = 5)
         {
-            
-            var listAccount = _context.Users.ToPagedList(page,pageSize);
-            if (string.IsNullOrEmpty(name))
+            // Tạo truy vấn ban đầu
+            var query = _context.Users.AsQueryable();
+
+            // Nếu có tham số tìm kiếm, áp dụng điều kiện lọc
+            if (!string.IsNullOrEmpty(name))
             {
-                return View(listAccount);
+                query = query.Where(u => u.Name.ToLower().Contains(name.ToLower())); // Tìm kiếm theo tên
             }
-            else
-            {
-                var search = _context.Users.Where(u => u.Name.ToLower().Contains(name.ToLower())).ToList();
-                if(search.Count == 0)
-                {
-                    return View(listAccount);
-                }
-                else
-                {
-                    return View(search);
-                }
-            }
+
+            // Tổng số bản ghi sau khi tìm kiếm (nếu có)
+            var totalItems = query.Count();
+
+            // Lấy dữ liệu cho trang hiện tại
+            var pagedResult = query
+                .OrderBy(u => u.Name) // Sắp xếp theo tên
+                .Skip((page - 1) * pageSize) // Bỏ qua các bản ghi của trang trước
+                .Take(pageSize) // Lấy số bản ghi của trang hiện tại
+                .ToList();
+
+            // Sử dụng ViewBag để truyền thêm thông tin vào View
+            ViewBag.PageNumber = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.SearchTerm = name;
+
+            return View(pagedResult); // Trả danh sách người dùng đã phân trang
         }
+
 
 
         // GET: UserController/Details/5
@@ -99,7 +106,7 @@ namespace Web_Ban_Hang.Controllers
         }
 
         // GET: UserController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             
                 User u = new User()
@@ -116,7 +123,7 @@ namespace Web_Ban_Hang.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(User us)
+        public IActionResult Create(User us)
         {
             _context.Users.Add(us);
             _context.SaveChanges();
@@ -175,9 +182,9 @@ namespace Web_Ban_Hang.Controllers
 
             var user = _context.Users.FirstOrDefault(u => u.PhoneNumber == phoneNumber && u.Password == password);
 
-            if (user != null)
-            {
-                // Lưu thông tin đăng nhập vào session
+            
+            if (user != null && user.PhoneNumber == phoneNumber && user.Password == password)
+            {                // Lưu thông tin đăng nhập vào session
                 HttpContext.Session.SetString("UserId", user.Id.ToString());
                 HttpContext.Session.SetString("UserName", user.Name);
                 HttpContext.Session.SetInt32("UserRole", user.Role); // Lưu Role
@@ -187,18 +194,18 @@ namespace Web_Ban_Hang.Controllers
                 // Điều hướng theo vai trò
                 if (user.Role == 1) // Admin
                 {
-                    TempData["UserRole"] = userrole ?? "Admin";
+                    TempData["UserRole"] = "Chào mừng Admin";
                     return RedirectToAction("Index","User");
                 }
                 else // Khách hàng
                 {
-                    TempData["UserRole"] = userrole ?? "Quý khách";
+                    TempData["UserRole"] = "Quý khách";
                     return RedirectToAction("Index", "Home");
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Invalid phone number or password.");
+                TempData["invalid"] = "Sai SĐT hoặc Password rồi, vui long xem lại bạn nhóe";
                 return View();
             }
         }
@@ -223,7 +230,7 @@ namespace Web_Ban_Hang.Controllers
             }
             catch(Exception e)
             {
-                return View();
+                return View(e.Message);
             }
         }
     }
