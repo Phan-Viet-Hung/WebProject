@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5mjqivdw07U=",
+  "dgSpecHash": "UmaYn+c/m7E=",
   "success": true,
   "projectFilePath": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\Web_Ban_Hang.csproj",
   "expectedPackageFiles": [
@@ -221,7 +221,9 @@
     "C:\\Users\\ukpko\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\ukpko\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\ukpko\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\ukpko\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\ukpko\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\ukpko\\.nuget\\packages\\x.pagedlist\\10.5.7\\x.pagedlist.10.5.7.nupkg.sha512",
+    "C:\\Users\\ukpko\\.nuget\\packages\\x.pagedlist.mvc.core\\10.5.7\\x.pagedlist.mvc.core.10.5.7.nupkg.sha512"
   ],
   "logs": []
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Web_Ban_Hang.Models;
+using X.PagedList.Extensions;
 
 namespace Web_Ban_Hang.Controllers
 {
@@ -22,7 +23,7 @@ namespace Web_Ban_Hang.Controllers
             var actionName = context.RouteData.Values["action"]?.ToString();
 
             // Kiểm tra nếu không phải action cần kiểm tra role
-            if (actionName != "Login" && actionName != "Register") // Giả sử "PublicAction" là action không cần kiểm tra role
+            if (actionName != "Login" && actionName != "Register" && actionName != "Logout") // Nếu là action Login và Register không cần kiểm tra role
             {
                 // Kiểm tra nếu vai trò là null hoặc không hợp lệ
                 if (role == null)
@@ -44,24 +45,49 @@ namespace Web_Ban_Hang.Controllers
             }
             else
             {
-                context.Result = View();
+                if(role == 1)
+                {
+                    context.Result = RedirectToAction("Index", "User");
+                }
+                else if(role == 0)
+                {
+                    context.Result = RedirectToAction("Index", "Home");
+                }
             }
 
             base.OnActionExecuting(context);
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
         // GET: UserController
-        public ActionResult Index()
+        public ActionResult Index(string name,int page, int pageSize)
         {
-            var role = HttpContext.Session.GetInt32("UserRole"); // Lấy role từ Session
-            if (role == null || role != 1) // Nếu không phải admin
+            
+            var listAccount = _context.Users.ToPagedList(page,pageSize);
+            if (string.IsNullOrEmpty(name))
             {
-                return Content("Bạn không có quyền truy cập vào trang này");
+                return View(listAccount);
             }
-
-            var listAccount = _context.Users.ToList();
-            return View(listAccount);
+            else
+            {
+                var search = _context.Users.Where(u => u.Name.ToLower().Contains(name.ToLower())).ToList();
+                if(search.Count == 0)
+                {
+                    return View(listAccount);
+                }
+                else
+                {
+                    return View(search);
+                }
+            }
         }
 
 
@@ -75,13 +101,7 @@ namespace Web_Ban_Hang.Controllers
         // GET: UserController/Create
         public ActionResult Create()
         {
-            var role = HttpContext.Session.GetInt32("UserRole"); // Lấy role từ Session
-            if (role == null || role != 1) // Nếu không phải admin
-            {
-                return Content("Bạn không có quyền truy cập vào trang này");
-            }
-            else
-            {
+            
                 User u = new User()
                 {
                     Name = "Phan Việt Hùng",
@@ -90,7 +110,6 @@ namespace Web_Ban_Hang.Controllers
                     Age = 19
                 };
                 return View(u);
-            }
 
         }
 

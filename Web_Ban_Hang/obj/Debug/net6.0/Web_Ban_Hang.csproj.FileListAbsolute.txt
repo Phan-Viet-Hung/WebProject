@@ -276,3 +276,7 @@ D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\obj\Debug\net6.0\refint\Web_Ban
 D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\obj\Debug\net6.0\Web_Ban_Hang.pdb
 D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\obj\Debug\net6.0\Web_Ban_Hang.genruntimeconfig.cache
 D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\obj\Debug\net6.0\ref\Web_Ban_Hang.dll
+D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\obj\Debug\net6.0\Web_Ban_Hang.sourcelink.json
+D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\bin\Debug\net6.0\X.PagedList.dll
+D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll
+D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang\obj\Debug\net6.0\Web_Ban_Hang.MvcApplicationPartsAssemblyInfo.cs
