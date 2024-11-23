@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|d:\\code\\net1041-c#4\\code\\webproject\\web_ban_hang\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|solutionrelative:web_ban_hang\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|d:\\code\\net1041-c#4\\code\\webproject\\web_ban_hang\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|solutionrelative:web_ban_hang\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|d:\\code\\net1041-c#4\\code\\webproject\\web_ban_hang\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|solutionrelative:web_ban_hang\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|d:\\code\\net1041-c#4\\code\\webproject\\web_ban_hang\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|solutionrelative:web_ban_hang\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{11A3760E-88BB-404B-93EA-ABB97608834C}|Web_Ban_Hang\\Web_Ban_Hang.csproj|d:\\code\\net1041-c#4\\code\\webproject\\web_ban_hang\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +46,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\Models\\User.cs",
               "RelativeDocumentMoniker": "Web_Ban_Hang\\Models\\User.cs",
@@ -59,13 +59,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\Views\\User\\Index.cshtml",
               "RelativeDocumentMoniker": "Web_Ban_Hang\\Views\\User\\Index.cshtml",
               "ToolTip": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\Views\\User\\Index.cshtml",
               "RelativeToolTip": "Web_Ban_Hang\\Views\\User\\Index.cshtml",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAADQAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-11-23T07:43:21.433Z",
               "EditorCaption": ""
@@ -98,13 +98,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Web_Ban_Hang\\Controllers\\UserController.cs",
               "ToolTip": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\Controllers\\UserController.cs",
               "RelativeToolTip": "Web_Ban_Hang\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAgwEkAAABIAAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAAYwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-23T07:07:23.22Z",
               "EditorCaption": ""
