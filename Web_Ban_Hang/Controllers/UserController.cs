@@ -68,7 +68,7 @@ namespace Web_Ban_Hang.Controllers
 
 
         // GET: UserController
-        public ActionResult Index(string name,int page, int pageSize)
+        public ActionResult Index(string name,int page = 5, int pageSize = 5)
         {
             
             var listAccount = _context.Users.ToPagedList(page,pageSize);
