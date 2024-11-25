@@ -225,8 +225,8 @@ namespace Web_Ban_Hang.Controllers
             {
                 _context.Update(us);
                 _context.SaveChanges();
-                TempData["update"] = "Bạn đã cập nhật thông tin thánh công";
-                return RedirectToAction(nameof(Index));
+                TempData["update"] = "Bạn đã cập nhật thông tin thành công";
+                return RedirectToAction("Index","User");
             }
             catch(Exception e)
             {

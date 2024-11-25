@@ -1,14 +1,42 @@
-﻿
+﻿@model IEnumerable<Web_Ban_Hang.Models.Product>
 @{
     ViewData["Title"] = "Home Page";
     var welcome = TempData["UserRole"];
     var logout = TempData["Logout"];
     var messlogout = TempData["MessLogut"];
+    var invalidmess = TempData["invalid"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Kính chào @welcome đến với shop</h1>
+    <h1>Xin chào @welcome đến với shop</h1>
     <h2>@logout</h2>
-    <h2>@messlogout</h2>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>@messlogout</p>
+    <p>@invalidmess</p>
+</div>
+
+<h1>Danh sách sản phẩm</h1>
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="@product.Image" alt="@product.ProductName" style="height: 200px; object-fit: cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">@product.ProductName</h5>
+                    <p class="card-text">@product.Price.ToString("C")</p>
+
+                    <!-- Form để thêm sản phẩm vào giỏ hàng với số lượng -->
+                    <form asp-action="AddToCart" asp-controller="Home" method="post" class="mt-2">
+                        <input type="hidden" name="id" value="@product.ProductId" />
+                        <div class="form-group">
+                            <label for="quantity-@product.ProductId">Số lượng:</label>
+                            <input type="number" id="quantity-@product.ProductId" name="quantity" class="form-control" min="1" value="1" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    }
 </div>

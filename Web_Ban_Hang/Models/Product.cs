@@ -7,7 +7,7 @@ namespace Web_Ban_Hang.Models
     public class Product
     {
         [Key]
-        public Guid ProductId { get; set; } // Khóa chính của bảng sản phẩm
+        public Guid ProductId { get; set; } = Guid.NewGuid(); // Khóa chính của bảng sản phẩm
 
         [Required(ErrorMessage = "Tên sản phẩm là bắt buộc.")]
         [StringLength(100, ErrorMessage = "Tên sản phẩm không được vượt quá 100 ký tự.")]
@@ -22,9 +22,10 @@ namespace Web_Ban_Hang.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Giá sản phẩm phải lớn hơn 0.")]
         public decimal Price { get; set; } // Giá sản phẩm
 
-        [Url(ErrorMessage = "Ảnh sản phẩm phải là một URL hợp lệ.")]
+        //[Url(ErrorMessage = "Ảnh sản phẩm phải là một URL hợp lệ.")]
         public string Image { get; set; } // Link ảnh sản phẩm
         public string Status { get; set; }
+        //public User User { get; set; }
         public List<BillDetail> Details { get; set; }
         public List<CartDetail> CartDetails { get; set; } // Liên kết tới chi tiết giỏ hàng
     }

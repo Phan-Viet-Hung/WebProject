@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using Web_Ban_Hang.Models;
 using X.PagedList.Extensions;
 
@@ -31,32 +32,24 @@ namespace Web_Ban_Hang.Controllers
                 else if (role == 1) // Nếu là admin
                 {
                     var controllerName = context.RouteData.Values["controller"]?.ToString();
-                    if (controllerName != "Product" || actionName != "Index")
+                    if (controllerName == "Product" && (actionName == "Index" || actionName == "Details" || actionName == "Create" || actionName == "Edit"))
                     {
-                        context.Result = RedirectToAction("Index", "Product");
+                        // Cho phép admin truy cập vào các action cần thiết
+                        base.OnActionExecuting(context);
+                        return;
                     }
+
+                    context.Result = RedirectToAction("Index", "Product");
                 }
+
                 else if (role == 0) // Nếu là khách
                 {
                     context.Result = Content("Bạn không có quyền truy cập vào trang này");
                 }
             }
-            else
-            {
-                if (role == 1)
-                {
-                    context.Result = RedirectToAction("Index", "Product");
-                }
-                else if (role == 0)
-                {
-                    context.Result = RedirectToAction("Index", "Home");
-                }
-            }
-
-            base.OnActionExecuting(context);
         }
         // GET: ProductController
-        public ActionResult Index(string name, int page = 1, int pageSize = 5)
+        public IActionResult Index(string name, int page = 1, int pageSize = 5)
         {
             // Tạo truy vấn ban đầu
             var query = _context.Products.AsQueryable();
@@ -89,6 +82,8 @@ namespace Web_Ban_Hang.Controllers
         // GET: ProductController/Details/5
         public ActionResult Details(Guid id)
         {
+            //var i = _context.Products.Include(x=>x.User).FirstOrDefault(x=>x.ProductId == id);
+            //ViewData["role"] = i.User.Role;
             var i = _context.Products.Find(id);
             return View(i);
         }
@@ -101,8 +96,7 @@ namespace Web_Ban_Hang.Controllers
                 ProductName = "Áo thun free size",
                 Description = "Áo đẹp như người yêu bạn",
                 Quantity = 10,
-                Price = 39000,
-                Status = "Còn"
+                Price = Convert.ToInt32(39000),
             };
             return View(pro);
         }
@@ -110,40 +104,89 @@ namespace Web_Ban_Hang.Controllers
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product pro)
+        public ActionResult Create(Product pro, IFormFile ImageFile)
         {
             try
             {
+                // Gán ProductId nếu nó là Guid và không tự động sinh
+                if (pro.ProductId == Guid.Empty)
+                {
+                    pro.ProductId = Guid.NewGuid();
+                }
+
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                    string filePath = Path.Combine(uploadPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ImageFile.CopyTo(stream);
+                    }
+
+                    pro.Image = "/images/" + fileName;
+                }
+
+                //if (!ModelState.IsValid)
+                //{
+                //    TempData["CreateProduct"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.";
+                //    return RedirectToAction("Index", "Product");
+                //}
+
                 _context.Products.Add(pro);
                 _context.SaveChanges();
-                return RedirectToAction("Index","Product");
+
+                TempData["CreateProduct"] = "Tạo sản phẩm thành công.";
+                return RedirectToAction("Index", "Product");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return View(e.Message);
+                if (pro.Image != null)
+                {
+                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", pro.Image.TrimStart('/'));
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
+                TempData["CreateProduct"] = "Tạo sản phẩm thất bại. Lỗi: " + e.Message;
+                return RedirectToAction("Index", "Product");
             }
         }
+
+
 
         // GET: ProductController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var editIem = _context.Products.FirstOrDefault(x=>x.ProductId == id);
+            var editIem = _context.Products.FirstOrDefault(x => x.ProductId == id);
             return View(editIem);
         }
 
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, IFormCollection collection)
+        public ActionResult Edit(Guid id, Product pro)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _context.Products.Update(pro);
+                _context.SaveChanges();
+                TempData["update"] = "Bạn đã cập nhật thông tin thành công";
+                return RedirectToAction("Index", "Product");
             }
             catch
             {
                 return View();
             }
         }
+
     }
 }
