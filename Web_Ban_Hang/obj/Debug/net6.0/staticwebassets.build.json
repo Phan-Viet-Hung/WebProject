@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FjDQRtWo1TkSLExRKBkxEo21UxXgLx2AKZY+QOK44fc=",
+  "Hash": "jO5qhoCKJ4AKDWJE6VtLt8jrENcbRKPF+b6lx9q8zrM=",
   "Source": "Web_Ban_Hang",
   "BasePath": "_content/Web_Ban_Hang",
   "Mode": "Default",
@@ -205,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\2b478d22-0b29-4b7c-86d2-08ef69e99401.png"
+    },
+    {
+      "Identity": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\2b72d8ad-73b5-44d5-8799-9621531641bc.png",
+      "SourceId": "Web_Ban_Hang",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\",
+      "BasePath": "_content/Web_Ban_Hang",
+      "RelativePath": "images/2b72d8ad-73b5-44d5-8799-9621531641bc.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\2b72d8ad-73b5-44d5-8799-9621531641bc.png"
     },
     {
       "Identity": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\38a08244-05e3-4925-b151-ef01aeb4b268.png",

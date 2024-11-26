@@ -22,7 +22,7 @@ namespace Web_Ban_Hang.Models
         public decimal TotalAmount { get; set; } // Tổng số tiền
 
         [Required]
-        public string? Status { get; set; } // Trạng thái hóa đơn ("Pending", "Paid", "Shipped", etc.)
+        public string? Status { get; set; } = "Wait for cònirming"; // Trạng thái hóa đơn ("Pending", "Paid", "Shipped", etc.)
 
         public List<BillDetail> Details { get; set; } // Danh sách sản phẩm trong hóa đơn
     }

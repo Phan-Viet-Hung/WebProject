@@ -7,10 +7,6 @@ namespace Web_Ban_Hang.Models
         [Key]
         public Guid Id { get; set; } // ID giỏ hàng
 
-        [Required(ErrorMessage = "Tên người dùng là bắt buộc.")]
-        [StringLength(100, ErrorMessage = "Tên người dùng không được vượt quá 100 ký tự.")]
-        public string UserName { get; set; }
-
         [Required(ErrorMessage = "ID người dùng là bắt buộc.")]
         public Guid UserId { get; set; } // ID người dùng (Customer)
 

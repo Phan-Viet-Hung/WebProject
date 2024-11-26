@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Web_Ban_Hang.Models.Bill>
+
+@{
+    ViewData["Title"] = "Danh sách hóa đơn của bạn";
+}
+
+<h1>Danh sách hóa đơn của bạn</h1>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mã hóa đơn</th>
+                <th>Ngày tạo</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bill in Model)
+            {
+                <tr>
+                    <td>@bill.Id</td>
+                    <td>@bill.CreateDate.ToString("dd/MM/yyyy")</td>
+                    <td>@String.Format("{0:C}", bill.TotalAmount)</td>
+                    <td>@bill.Status</td>
+                    <td>
+                        <a class="btn btn-info" href="@Url.Action("BillDetails", "Home", new { id = bill.Id })">Chi tiết</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có hóa đơn nào.</p>
+}
+<a class="btn btn-primary" href="@Url.Action("Index", "Home")">Quay lại trang chính</a>
+

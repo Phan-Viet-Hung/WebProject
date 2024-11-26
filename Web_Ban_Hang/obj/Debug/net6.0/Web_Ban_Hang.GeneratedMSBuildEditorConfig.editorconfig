@@ -18,12 +18,24 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Code\NET1041-C#4\Code\WebProject\Web_Ban_Hang
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Bill/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Bill/Payment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxQYXltZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Cart/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Cart/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Home/BillDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCaWxsRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Home/Cart.cshtml]
@@ -40,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Home/UserBills.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVc2VyQmlsbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Code/NET1041-C\#4/Code/WebProject/Web_Ban_Hang/Views/Product/Create.cshtml]

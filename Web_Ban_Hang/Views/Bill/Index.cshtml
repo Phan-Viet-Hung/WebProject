@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Web_Ban_Hang.Models.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách hóa đơn</h1>
+
+<!-- Form tìm kiếm -->
+<form method="get">
+    <div class="form-group">
+        <label for="search">Tìm kiếm (Tên người dùng, Số điện thoại, Trạng thái):</label>
+        <input type="text" id="search" name="search" class="form-control" value="@ViewBag.SearchTerm" />
+    </div>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.User.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.User.PhoneNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.CreateDate)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+                <td>@String.Format("{0:C}", item.TotalAmount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>
+                    <a asp-controller="Home" asp-action="BillDetails" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Phân trang -->
+<div>
+    <ul class="pagination">
+        @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalItems / ViewBag.PageSize); i++)
+        {
+            <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                <a class="page-link" href="?page=@i&search=@ViewBag.SearchTerm">@i</a>
+            </li>
+        }
+    </ul>
+</div>

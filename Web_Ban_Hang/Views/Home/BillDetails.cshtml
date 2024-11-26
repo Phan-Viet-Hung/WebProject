@@ -1,0 +1,59 @@
+﻿@model Web_Ban_Hang.Models.Bill
+@{
+    var role = ViewBag.UserRole;  // Lấy vai trò người dùng từ ViewBag
+}
+
+<h2>Chi tiết hóa đơn</h2>
+
+<!-- Thông tin chung của hóa đơn -->
+<p><strong>Mã hóa đơn:</strong> @Model.Id</p>
+<p><strong>Ngày tạo:</strong> @Model.CreateDate.ToString("dd/MM/yyyy")</p>
+<p><strong>Trạng thái:</strong> @Model.Status</p>
+<p><strong>Tổng tiền:</strong> @String.Format("{0:C}", Model.TotalAmount)</p>
+
+<!-- Bảng chi tiết sản phẩm -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.Details)
+        {
+            <tr>
+                <!-- Ảnh sản phẩm -->
+                <td>
+                    <img src="@Url.Content(detail.Products?.Image ?? "/images/default.png")"
+                         alt="@detail.Products?.ProductName"
+                         style="width: 100px; height: auto;" />
+                </td>
+                <!-- Tên sản phẩm -->
+                <td>@detail.Products?.ProductName</td>
+                <!-- Số lượng -->
+                <td>@detail.Quantity</td>
+                <!-- Đơn giá -->
+                <td>@String.Format("{0:C}", detail.UnitPrice)</td>
+                <!-- Thành tiền -->
+                <td>@String.Format("{0:C}", detail.Quantity * detail.UnitPrice)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+ <!-- Nút điều hướng -->
+<a class="btn btn-primary" href="@Url.Action("Index", "Home")">Quay lại trang chính</a>
+
+<!-- Điều kiện hiển thị button theo vai trò -->
+@if (role == 1)  // Nếu là admin
+{
+    <a class="btn btn-danger" href="@Url.Action("Index", "Bill", new { id = Model.Id })">Quay về danh sách tất cả hóa đơn</a>
+}
+else if (role == 0)  // Nếu là user
+{
+    @* <a class="btn btn-info" href="@Url.Action("Reorder", "Bill", new { id = Model.Id })">Đặt lại đơn hàng</a> *@
+    <a class="btn btn-success" href="@Url.Action("Payment", "Bill", new { id = Model.Id })">Thanh toán</a>
+} 

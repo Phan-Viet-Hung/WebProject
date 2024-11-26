@@ -6,12 +6,16 @@
 
 <h1>Index</h1>
 
+
+<!-- Form tìm kiếm -->
+<form id="searchForm" asp-controller="User" asp-action="Index" method="get">
+    <input type="text" name="name" id="searchBox" value="@ViewBag.SearchTerm" placeholder="Nhập tên cần tìm..." class="form-control" />
+    <input type="hidden" name="page" value="1" /> <!-- Đặt lại trang về 1 khi tìm kiếm -->
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
@@ -33,9 +37,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>

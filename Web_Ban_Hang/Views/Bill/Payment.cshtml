@@ -1,0 +1,65 @@
+﻿@model Web_Ban_Hang.Models.Bill
+
+@{
+    var role = ViewBag.UserRole;  // Lấy vai trò người dùng từ ViewBag
+}
+
+<h2>Thanh toán hóa đơn</h2>
+
+<!-- Thông tin chung của hóa đơn -->
+<p><strong>Mã hóa đơn:</strong> @Model.Id</p>
+<p><strong>Ngày tạo:</strong> @Model.CreateDate.ToString("dd/MM/yyyy")</p>
+<p><strong>Trạng thái:</strong> @Model.Status</p>
+<p><strong>Tổng tiền:</strong> @String.Format("{0:C}", Model.TotalAmount)</p>
+
+<!-- Bảng chi tiết sản phẩm -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.Details)
+        {
+            <tr>
+                <!-- Ảnh sản phẩm -->
+                <td>
+                    <img src="@Url.Content(detail.Products?.Image ?? "/images/default.png")"
+                         alt="@detail.Products?.ProductName"
+                         style="width: 100px; height: auto;" />
+                </td>
+                <!-- Tên sản phẩm -->
+                <td>@detail.Products?.ProductName</td>
+                <!-- Số lượng -->
+                <td>@detail.Quantity</td>
+                <!-- Đơn giá -->
+                <td>@String.Format("{0:C}", detail.UnitPrice)</td>
+                <!-- Thành tiền -->
+                <td>@String.Format("{0:C}", detail.Quantity * detail.UnitPrice)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Form chọn phương thức thanh toán -->
+<h3>Chọn phương thức thanh toán</h3>
+<form method="post" action="@Url.Action("ProcessPayment", "Bill", new { id = Model.Id })">
+    <div class="form-group">
+        <label for="paymentMethod">Chọn phương thức thanh toán:</label>
+        <select id="paymentMethod" name="paymentMethod" class="form-control" required>
+            @foreach (var method in ViewBag.PaymentMethods)
+            {
+                <option value="@method">@method</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Thanh toán</button>
+</form>
+
+<!-- Nút quay lại -->
+<a class="btn btn-primary" href="@Url.Action("Index", "Home")">Quay lại trang chính</a>

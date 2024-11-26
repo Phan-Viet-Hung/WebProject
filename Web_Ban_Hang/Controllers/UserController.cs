@@ -148,7 +148,6 @@ namespace Web_Ban_Hang.Controllers
                 Cart cart = new Cart()
                 {
                     Id = us.CartId,
-                    UserName = us.Name,
                     UserId = us.Id
                 };
                 _context.Carts.Add(cart);
