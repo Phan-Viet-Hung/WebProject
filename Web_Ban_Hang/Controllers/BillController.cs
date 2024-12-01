@@ -132,6 +132,22 @@ namespace Web_Ban_Hang.Controllers
 
             return View(bill);
         }
+        [HttpPost]
+        public IActionResult ProcessPayment(Guid id, string paymentMethod)
+        {
+            // Lấy hóa đơn theo ID
+            var bill = _context.Bill.FirstOrDefault(b => b.Id == id);
+            if (bill == null)
+            {
+                return NotFound("Không tìm thấy hóa đơn.");
+            }
+
+            // Cập nhật trạng thái hoặc xử lý thanh toán theo paymentMethod
+            bill.Status = "Đã thanh toán";
+            _context.SaveChanges();
+
+            return RedirectToAction("BillDetails", new { id = bill.Id });
+        }
 
     }
 }

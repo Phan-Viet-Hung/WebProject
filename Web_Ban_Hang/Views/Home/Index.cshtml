@@ -1,31 +1,26 @@
-﻿@model IEnumerable<Web_Ban_Hang.Models.Product>
+﻿ @model X.PagedList.IPagedList<Web_Ban_Hang.Models.Product>
+@using X.PagedList.Mvc.Core; <!-- Thêm namespace của thư viện -->
+
 @{
-    ViewData["Title"] = "Home Page";
     var welcome = TempData["UserRole"];
     var logout = TempData["Logout"];
     var messlogout = TempData["MessLogut"];
     var invalidmess = TempData["invalid"];
 }
 
-<div class="text-center">
-    <h1>Xin chào @welcome đến với shop</h1>
-    <h2>@logout</h2>
-    <p>@messlogout</p>
-    <p>@invalidmess</p>
-</div>
-
 <h1>Danh sách sản phẩm</h1>
 <div class="row">
     @foreach (var product in Model)
     {
-        <div class="col-md-3 mb-4">
+        <div class="col-md-4 mb-4">
+            <!-- 3 sản phẩm trên mỗi hàng -->
             <div class="card">
                 <img class="card-img-top" src="@product.Image" alt="@product.ProductName" style="height: 200px; object-fit: cover;" />
                 <div class="card-body">
                     <h5 class="card-title">@product.ProductName</h5>
                     <p class="card-text">@product.Price.ToString("C")</p>
 
-                    <!-- Form để thêm sản phẩm vào giỏ hàng với số lượng -->
+                    <!-- Form để thêm sản phẩm vào giỏ hàng -->
                     <form asp-action="AddToCart" asp-controller="Home" method="post" class="mt-2">
                         <input type="hidden" name="id" value="@product.ProductId" />
                         <div class="form-group">
@@ -39,3 +34,17 @@
         </div>
     }
 </div>
+<!-- Điều hướng phân trang -->
+@Html.PagedListPager(
+        Model,
+        page => Url.Action("Index", new { page }), // Tạo URL cho mỗi trang
+        new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Always, // Hiển thị nút về trang đầu
+        DisplayLinkToLastPage = PagedListDisplayMode.Always,  // Hiển thị nút đến trang cuối
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always, // Hiển thị nút trang trước
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,     // Hiển thị nút trang sau
+        MaximumPageNumbersToDisplay = 5  // Hiển thị tối đa 5 nút số trang
+    }
+)
+

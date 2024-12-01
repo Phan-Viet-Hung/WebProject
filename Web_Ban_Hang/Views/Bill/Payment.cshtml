@@ -49,6 +49,7 @@
 <!-- Form chọn phương thức thanh toán -->
 <h3>Chọn phương thức thanh toán</h3>
 <form method="post" action="@Url.Action("ProcessPayment", "Bill", new { id = Model.Id })">
+    @* <form> *@
     <div class="form-group">
         <label for="paymentMethod">Chọn phương thức thanh toán:</label>
         <select id="paymentMethod" name="paymentMethod" class="form-control" required>

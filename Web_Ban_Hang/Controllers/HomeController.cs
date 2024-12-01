@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Web_Ban_Hang.Models;
+using X.PagedList.Extensions;
 
 namespace Web_Ban_Hang.Controllers
 {
@@ -31,10 +32,17 @@ namespace Web_Ban_Hang.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
+            TempData["UserName"] = HttpContext.Session.GetString("UserName");
+            // Lấy vai trò người dùng từ Session
             var userrole = HttpContext.Session.GetString("UserRole");
             TempData["UserRole"] = userrole ?? "Guest";
+
+            // Số sản phẩm trên mỗi trang
+            int pageSize = 6; // 2 dòng x 3 sản phẩm mỗi dòng
+            int pageNumber = page ?? 1; // Trang hiện tại, mặc định là trang 1
+
             // Lấy danh sách sản phẩm từ database
             var products = _context.Products
                 .Where(p => p.Quantity > 0) // Chỉ lấy sản phẩm còn hàng
@@ -45,10 +53,12 @@ namespace Web_Ban_Hang.Controllers
                     Price = p.Price,
                     Image = p.Image
                 })
-                .ToList();
+                .ToList()
+                .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang
 
             return View(products);
         }
+
         public ActionResult Details(Guid id)
         {
             var i = _context.Products.Find(id);
