@@ -34,7 +34,10 @@
                         <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="Index">Quản lý sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Bill" asp-action="Index">Quản lý đơn hàng</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Bill" asp-action="Index">Quản lý hóa đơn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Cart" asp-action="Index">Quản lý giỏ hàng</a>
                     </li>
                     <li class="nav-item">
                         @if (string.IsNullOrEmpty(isLoggedIn))

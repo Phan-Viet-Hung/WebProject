@@ -28,7 +28,7 @@ namespace Web_Ban_Hang.Controllers
                 // Kiểm tra nếu vai trò là null hoặc không hợp lệ
                 if (role == null)
                 {
-                    context.Result = Content("Bạn không có quyền truy cập vào trang này.");
+                    context.Result = View("Error", "Shared");
                 }
                 else if (role == 1) // Nếu là admin
                 {
@@ -45,7 +45,7 @@ namespace Web_Ban_Hang.Controllers
 
                 else if (role == 0) // Nếu là khách
                 {
-                    context.Result = Content("Bạn không có quyền truy cập vào trang này");
+                    context.Result = View("Error", "Shared");
                 }
             }
             else
@@ -224,7 +224,7 @@ namespace Web_Ban_Hang.Controllers
             else
             {
                 TempData["invalid"] = "Sai SĐT hoặc Password rồi, vui long xem lại bạn nhóe";
-                return View("Error");
+                return View();
             }
         }
 

@@ -1,46 +1,91 @@
 ﻿@model Web_Ban_Hang.Models.Cart
 
+@{
+    ViewBag.Title = "Chi tiết Giỏ Hàng";
+}
 
+<div class="container mt-4">
+    <h2 class="text-center">Chi tiết Giỏ Hàng</h2>
 
-<h1>Details</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4>Thông tin Giỏ Hàng</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID Giỏ Hàng:</strong> @Model.Id</p>
+                    <p><strong>Ngày Tạo:</strong> @Model.CreatedAt</p>
+                    <p><strong>Tổng Tiền:</strong> @Model.TotalAmount.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <h4>Cart</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalAmount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalAmount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4>Chi Tiết Sản Phẩm</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Tổng Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CartDetails)
+                            {
+                                <tr>
+                                    <td>@item.Products.ProductName</td> <!-- Assuming CartDetails have Product -->
+                                    <td>@item.Products.Quantity</td>
+                                    <td>@item.Products.Price.ToString("C")</td>
+                                    <td>@(item.Products.Quantity * item.Products.Price).ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Thông Tin Người Dùng</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID Người Dùng:</strong> @ViewBag.UserId</p>
+                    <p><strong>Tên Người Dùng:</strong> @Model.CartDetails.</p> <!-- Assuming Cart has User -->
+                    <p><strong>Email:</strong> @Model.User.Email</p>
+                    <p><strong>Số Điện Thoại:</strong> @Model.User.PhoneNumber</p>
+                </div>
+            </div>
+        </div>
+    </div> *@
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<!-- Optional: Styling to improve the view -->
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .card-header {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+    .table th, .table td {
+        text-align: center;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+</style>
