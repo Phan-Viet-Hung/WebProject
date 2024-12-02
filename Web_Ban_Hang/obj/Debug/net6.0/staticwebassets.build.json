@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FMDel74IxI0eaE5FhCGvy9UyayJlBhPAzTriak8m75E=",
+  "Hash": "wq6DEZGELf4JehMXKTHcbb6VKP8Qgr08BEzRnts2Dlw=",
   "Source": "Web_Ban_Hang",
   "BasePath": "_content/Web_Ban_Hang",
   "Mode": "Default",
@@ -891,6 +891,25 @@
       "OriginalItemSpec": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Web_Ban_Hang.bundle.scp.css"
     },
     {
+      "Identity": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\css\\admin.css",
+      "SourceId": "Web_Ban_Hang",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\",
+      "BasePath": "_content/Web_Ban_Hang",
+      "RelativePath": "css/admin.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\admin.css"
+    },
+    {
       "Identity": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\css\\site.css",
       "SourceId": "Web_Ban_Hang",
       "SourceType": "Discovered",
@@ -1231,6 +1250,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\95bb6ad4-5da2-4468-8d4c-bcabf8f3e20a.png"
+    },
+    {
+      "Identity": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\a101a0e7-2afb-49f5-85e0-79e6dbe65323.png",
+      "SourceId": "Web_Ban_Hang",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\",
+      "BasePath": "_content/Web_Ban_Hang",
+      "RelativePath": "images/a101a0e7-2afb-49f5-85e0-79e6dbe65323.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\a101a0e7-2afb-49f5-85e0-79e6dbe65323.png"
     },
     {
       "Identity": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\aa0d1094-0219-4eb8-b4f9-cbda0979aada.png",

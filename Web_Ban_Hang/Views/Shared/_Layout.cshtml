@@ -43,13 +43,13 @@
                         else
                         {
                             <ul class="nav justify-content-end">
-                            <!-- Hiển thị tên người dùng và đăng xuất nếu đã đăng nhập -->
-                            <li class="nav-item">
-                                <span class="nav-link text-dark">Xin chào, @isLoggedIn</span>
-                            </li>
-                            <li class="nav-item nav justify-content-end">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Đăng xuất</a>
-                            </li>
+                                <!-- Hiển thị tên người dùng và đăng xuất nếu đã đăng nhập -->
+                                <li class="nav-item">
+                                    <span class="nav-link text-dark">Xin chào, @isLoggedIn</span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Đăng xuất</a>
+                                </li>
                             </ul>
                         }
 

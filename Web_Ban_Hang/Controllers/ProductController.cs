@@ -170,23 +170,74 @@ namespace Web_Ban_Hang.Controllers
             return View(editIem);
         }
 
-        // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, Product pro)
+        public ActionResult Edit(Guid id, Product pro, IFormFile ImageFile)
         {
             try
             {
-                _context.Products.Update(pro);
-                _context.SaveChanges();
-                TempData["update"] = "Bạn đã cập nhật thông tin thành công";
+                var existingProduct = _context.Products.FirstOrDefault(x => x.ProductId == id);
+
+                if (existingProduct != null)
+                {
+                    // Cập nhật thông tin khác
+                    existingProduct.ProductName = pro.ProductName;
+                    existingProduct.Description = pro.Description;
+                    existingProduct.Quantity = pro.Quantity;
+                    existingProduct.Price = pro.Price;
+                    existingProduct.Status = pro.Status;
+
+                    // Kiểm tra xem có ảnh mới không
+                    if (ImageFile != null && ImageFile.Length > 0)
+                    {
+                        // Xóa ảnh cũ nếu cần (nếu ảnh cũ không phải ảnh mặc định)
+                        if (!string.IsNullOrEmpty(existingProduct.Image) && !existingProduct.Image.Contains("default.png"))
+                        {
+                            string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingProduct.Image.TrimStart('/'));
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Upload ảnh mới
+                        string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                        string filePath = Path.Combine(uploadPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            ImageFile.CopyTo(stream);
+                        }
+
+                        // Cập nhật đường dẫn ảnh
+                        existingProduct.Image = "/images/" + fileName;
+                    }
+
+                    _context.Products.Update(existingProduct);
+                    _context.SaveChanges();
+
+                    TempData["update"] = "Bạn đã cập nhật thông tin sản phẩm thành công.";
+                }
+                else
+                {
+                    TempData["update"] = "Không tìm thấy sản phẩm cần chỉnh sửa.";
+                }
+
                 return RedirectToAction("Index", "Product");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                TempData["update"] = "Cập nhật sản phẩm thất bại: " + ex.Message;
+                return RedirectToAction("Index", "Product");
             }
         }
+
+
 
     }
 }

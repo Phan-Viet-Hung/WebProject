@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Web_Ban_Hang.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
     var updatemess = TempData["update"];
     var createproduct = TempData["CreateProduct"];
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Danh sách sản phẩm</h1>
@@ -43,13 +43,14 @@
                     <td>
                         @if (!string.IsNullOrEmpty(product.Image))
                         {
-                            <img src="@product.Image" alt="@product.ProductName" style="width: 100px; height: 100px; object-fit: cover;" />
+                            <img src="@Url.Content(product.Image)" alt="@product.ProductName" style="width: 100px; height: 100px; object-fit: cover;" />
                         }
                         else
                         {
                             <span>Không có ảnh</span>
                         }
                     </td>
+
                     <td>@product.Status</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@product.ProductId">Edit</a> |

@@ -1,0 +1,55 @@
+﻿@model Web_Ban_Hang.Models.User
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Thông tin chi tiết người dùng</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Họ và tên:</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Số điện thoại:</dt>
+        <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+        <dt class="col-sm-3">Tuổi:</dt>
+        <dd class="col-sm-9">@Model.Age</dd>
+
+        <dt class="col-sm-3">Vai trò:</dt>
+        <dd class="col-sm-9">
+            @if (Model.Role == 1)
+            {
+                <span class="text-success">Admin</span>
+            }
+            else
+            {
+                <span class="text-primary">Khách hàng</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">Giỏ hàng Id:</dt>
+        <dd class="col-sm-9">
+            @if (ViewBag.CartId != null)
+            {
+                @ViewBag.CartId
+            }
+            else
+            {
+                <span class="text-danger">Người dùng này chưa có giỏ hàng.</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">Ngày tạo:</dt>
+        <dd class="col-sm-9">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Chỉnh sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</div>

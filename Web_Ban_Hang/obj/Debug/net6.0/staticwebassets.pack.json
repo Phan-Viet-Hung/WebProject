@@ -181,6 +181,10 @@
       "PackagePath": "staticwebassets\\Web_Ban_Hang.bundle.scp.css"
     },
     {
+      "Id": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
       "Id": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -251,6 +255,10 @@
     {
       "Id": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\95bb6ad4-5da2-4468-8d4c-bcabf8f3e20a.png",
       "PackagePath": "staticwebassets\\images\\95bb6ad4-5da2-4468-8d4c-bcabf8f3e20a.png"
+    },
+    {
+      "Id": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\a101a0e7-2afb-49f5-85e0-79e6dbe65323.png",
+      "PackagePath": "staticwebassets\\images\\a101a0e7-2afb-49f5-85e0-79e6dbe65323.png"
     },
     {
       "Id": "D:\\Code\\NET1041-C#4\\Code\\WebProject\\Web_Ban_Hang\\wwwroot\\images\\aa0d1094-0219-4eb8-b4f9-cbda0979aada.png",

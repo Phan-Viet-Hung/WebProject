@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Web_Ban_Hang.Models.Bill>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Danh sách hóa đơn</h1>
@@ -36,7 +36,7 @@
                 <td>@String.Format("{0:C}", item.TotalAmount)</td>
                 <td>@Html.DisplayFor(modelItem => item.Status)</td>
                 <td>
-                    <a asp-controller="Home" asp-action="BillDetails" asp-route-id="@item.Id">Details</a>
+                    <a asp-controller="Home" asp-action="BillDetails" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
                 </td>
             </tr>
         }

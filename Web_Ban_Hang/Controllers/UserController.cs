@@ -99,11 +99,28 @@ namespace Web_Ban_Hang.Controllers
 
 
         // GET: UserController/Details/5
-        public ActionResult Details(Guid id)
+        public IActionResult Details(Guid id)
         {
-            var i = _context.Users.Find(id);
-            return View(i);
+            var user = _context.Users
+                .Include(u => u.CartDetails) // Include để lấy thông tin CartDetails nếu cần
+                .FirstOrDefault(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound("Người dùng không tồn tại."); // Trả về 404 nếu không tìm thấy
+            }
+
+            // Lấy CartId từ Cart nếu tồn tại
+            var cartId = _context.Carts
+                .Where(c => c.UserId == id)
+                .Select(c => c.Id)
+                .FirstOrDefault();
+
+            ViewBag.CartId = cartId; // Gửi CartId qua ViewBag
+
+            return View(user); // Truyền đối tượng user vào view
         }
+
 
         // GET: UserController/Create
         public IActionResult Create()
@@ -193,6 +210,8 @@ namespace Web_Ban_Hang.Controllers
                 // Điều hướng theo vai trò
                 if (user.Role == 1) // Admin
                 {
+                    // Sau khi người dùng đăng nhập thành công
+                    HttpContext.Session.SetString("UserName", user.Name);
                     TempData["UserRole"] = "Chào mừng Admin";
                     return RedirectToAction("Index","User");
                 }
@@ -205,7 +224,7 @@ namespace Web_Ban_Hang.Controllers
             else
             {
                 TempData["invalid"] = "Sai SĐT hoặc Password rồi, vui long xem lại bạn nhóe";
-                return View();
+                return View("Error");
             }
         }
 
