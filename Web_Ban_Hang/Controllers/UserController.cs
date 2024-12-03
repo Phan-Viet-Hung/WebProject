@@ -18,6 +18,8 @@ namespace Web_Ban_Hang.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var role = HttpContext.Session.GetInt32("UserRole");
+            TempData["UserName"] = HttpContext.Session.GetString("UserName");
+            
 
             // Lấy tên action đang thực thi
             var actionName = context.RouteData.Values["action"]?.ToString();
@@ -52,10 +54,12 @@ namespace Web_Ban_Hang.Controllers
             {
                 if(role == 1)
                 {
+                    TempData["UserRole"] = "Admin";
                     context.Result = RedirectToAction("Index", "User");
                 }
                 else if(role == 0)
                 {
+                    TempData["UserRole"] = "Khách";
                     context.Result = RedirectToAction("Index", "Home");
                 }
             }
@@ -70,7 +74,11 @@ namespace Web_Ban_Hang.Controllers
         {
             // Tạo truy vấn ban đầu
             var query = _context.Users.AsQueryable();
-
+            var userrole = HttpContext.Session.GetInt32("UserRole");
+            if (userrole == 1)
+            {
+                TempData["UserRole"] = "Admin";
+            }
             // Nếu có tham số tìm kiếm, áp dụng điều kiện lọc
             if (!string.IsNullOrEmpty(name))
             {
@@ -212,12 +220,10 @@ namespace Web_Ban_Hang.Controllers
                 {
                     // Sau khi người dùng đăng nhập thành công
                     HttpContext.Session.SetString("UserName", user.Name);
-                    TempData["UserRole"] = "Chào mừng Admin";
                     return RedirectToAction("Index","User");
                 }
                 else // Khách hàng
                 {
-                    TempData["UserRole"] = "Quý khách";
                     return RedirectToAction("Index", "Home");
                 }
             }

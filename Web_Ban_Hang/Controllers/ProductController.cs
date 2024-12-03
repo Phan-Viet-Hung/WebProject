@@ -53,7 +53,11 @@ namespace Web_Ban_Hang.Controllers
         {
             // Tạo truy vấn ban đầu
             var query = _context.Products.AsQueryable();
-
+            var userrole = HttpContext.Session.GetInt32("UserRole");
+            if (userrole == 1)
+            {
+                TempData["UserRole"] = "Admin";
+            }
             // Nếu có tham số tìm kiếm, áp dụng điều kiện lọc
             if (!string.IsNullOrEmpty(name))
             {

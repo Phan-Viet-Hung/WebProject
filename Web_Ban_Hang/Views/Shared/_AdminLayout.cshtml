@@ -1,5 +1,6 @@
 ﻿@{
     var isLoggedIn = TempData["UserName"] as string;
+    var role = TempData["UserRole"] as string;
 }
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@
     <title>@ViewData["Title"] - Web_Ban_Hang Admin</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/css/admin.css" rel="stylesheet" />
+    <link href="~/css/admin.css rel="stylesheet" />
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body class="d-flex flex-column vh-100">
@@ -24,9 +25,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <!-- Ví dụ thêm icon vào menu -->
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home Shop</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-house-door"></i> Home Shop
+                        </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">Quản lý người dùng</a>
                     </li>
@@ -75,3 +80,87 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<style>
+    /* Sử dụng Flexbox để căn chỉnh các phần tử trong container */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 70px; /* Đảm bảo nội dung không bị che khuất bởi navbar */
+}
+
+main {
+    flex-grow: 1; /* Giúp phần chính chiếm toàn bộ không gian còn lại */
+}
+
+/* Thêm vào file admin.css hoặc site.css */
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+}
+/* Thêm hiệu ứng chuyển động mượt mà khi di chuyển chuột vào navbar */
+.navbar-nav .nav-link {
+    transition: background-color 0.3s ease;
+}
+    .navbar-nav .nav-link:hover {
+        background-color: #444; /* Thêm hiệu ứng hover */
+        border-radius: 5px;
+
+    }
+
+/* Định dạng Navbar */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng cho navbar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030; /* Đảm bảo navbar luôn ở trên cùng các phần tử khác */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng cho navbar */
+    background-color: #343a40; /* Đảm bảo navbar có màu nền */
+
+}
+/* Thêm khoảng cách cho phần nội dung */
+.container-fluid.mt-5.pt-5 {
+    margin-top: 70px; /* Đảm bảo nội dung không bị che khuất bởi navbar */
+    margin-top: 90px; /* Đảm bảo nội dung không bị che khuất bởi navbar cố định */
+}
+
+/* Tạo không gian giữa các phần tử chính */
+main {
+    margin-bottom: 30px;
+}
+
+/* Tạo hiệu ứng cho các phần tử khi di chuột */
+.nav-link.active {
+    background-color: #f8f9fa; /* Khi chọn mục menu */
+    color: #333;
+}
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+/* Thêm màu sắc cho thông tin người dùng trong navbar */
+.navbar .nav-item span {
+    font-weight: bold;
+    color: #28a745; /* Màu sắc nổi bật */
+}
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+/* Thêm hiệu ứng mượt mà khi cuộn trang */
+html {
+    scroll-behavior: smooth;
+}
+
+</style>

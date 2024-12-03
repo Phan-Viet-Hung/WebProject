@@ -50,6 +50,7 @@ namespace Web_Ban_Hang.Controllers
         // GET: Cart
         public ActionResult Index(string search, int page = 1, int pageSize = 5)
         {
+
             var query = _context.Carts
                 .Join(_context.Users,
                       cart => cart.UserId,

@@ -1,5 +1,5 @@
-﻿ @model X.PagedList.IPagedList<Web_Ban_Hang.Models.Product>
-@using X.PagedList.Mvc.Core; <!-- Thêm namespace của thư viện -->
+﻿@model X.PagedList.IPagedList<Web_Ban_Hang.Models.Product>
+@using X.PagedList.Mvc.Core;
 
 @{
     var welcome = TempData["UserRole"];
@@ -8,43 +8,186 @@
     var invalidmess = TempData["invalid"];
 }
 
-<h1>Danh sách sản phẩm</h1>
-<div class="row">
-    @foreach (var product in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <!-- 3 sản phẩm trên mỗi hàng -->
-            <div class="card">
-                <img class="card-img-top" src="@product.Image" alt="@product.ProductName" style="height: 200px; object-fit: cover;" />
-                <div class="card-body">
-                    <h5 class="card-title">@product.ProductName</h5>
-                    <p class="card-text">@product.Price.ToString("C")</p>
+<div class="container my-5">
 
-                    <!-- Form để thêm sản phẩm vào giỏ hàng -->
-                    <form asp-action="AddToCart" asp-controller="Home" method="post" class="mt-2">
-                        <input type="hidden" name="id" value="@product.ProductId" />
-                        <div class="form-group">
-                            <label for="quantity-@product.ProductId">Số lượng:</label>
-                            <input type="number" id="quantity-@product.ProductId" name="quantity" class="form-control" min="1" value="1" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
-                    </form>
+    <!-- Thông báo người dùng -->
+    <div class="text-center">
+        @if (welcome != null)
+        {
+            <h3 class="alert alert-success">Chào mừng @welcome</h3>
+        }
+        @if (logout != null)
+        {
+            <h3 class="alert alert-warning">@logout</h3>
+        }
+        @if (messlogout != null)
+        {
+            <h3 class="alert alert-info">@messlogout</h3>
+        }
+        @if (invalidmess != null)
+        {
+            <h3 class="alert alert-danger">@invalidmess</h3>
+        }
+    </div>
+    <h1 class="text-center text-primary mb-4">Danh sách sản phẩm</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card shadow-sm border-light rounded">
+                    <img class="card-img-top" src="@product.Image" alt="@product.ProductName"
+                         style="height: 200px; object-fit: cover; border-bottom: 2px solid #007bff;" />
+                    <div class="card-body">
+                        <h5 class="card-title text-primary text-truncate" title="@product.ProductName">@product.ProductName</h5>
+                        <p class="card-text text-success font-weight-bold">Giá: @product.Price.ToString("C")</p>
+                        <p class="card-text text-muted">@product.Description</p>
+                        <p class="card-text text-muted">Tồn kho: @product.Quantity</p>
+
+                        <!-- Form Add to Cart -->
+                        <form asp-action="AddToCart" asp-controller="Home" method="post" class="mt-2">
+                            <input type="hidden" name="id" value="@product.ProductId" />
+                            <div class="form-group d-flex align-items-center">
+                                <label for="quantity-@product.ProductId" class="me-2 mb-0">Số lượng:</label>
+                                <input type="number" id="quantity-@product.ProductId" name="quantity"
+                                       class="form-control w-50" min="1" value="1" />
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary w-100 mt-3">Thêm vào giỏ hàng</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
-<!-- Điều hướng phân trang -->
-@Html.PagedListPager(
-        Model,
-        page => Url.Action("Index", new { page }), // Tạo URL cho mỗi trang
-        new PagedListRenderOptions
-    {
-        DisplayLinkToFirstPage = PagedListDisplayMode.Always, // Hiển thị nút về trang đầu
-        DisplayLinkToLastPage = PagedListDisplayMode.Always,  // Hiển thị nút đến trang cuối
-        DisplayLinkToPreviousPage = PagedListDisplayMode.Always, // Hiển thị nút trang trước
-        DisplayLinkToNextPage = PagedListDisplayMode.Always,     // Hiển thị nút trang sau
-        MaximumPageNumbersToDisplay = 5  // Hiển thị tối đa 5 nút số trang
-    }
-)
+        }
+    </div>
 
+    <!-- Phân trang -->
+    <div class="d-flex justify-content-center mt-4">
+        @* Add pagination controls here *@
+    </div>
+</div>
+
+<!-- Styles to enhance UI -->
+<style>
+    /* Thêm hiệu ứng hover cho card */
+    .card {
+        border: none; /* Xóa border của card */
+        border-radius: 15px; /* Bo tròn các góc */
+        overflow: hidden; /* Đảm bảo các phần tử bên trong không bị tràn ra ngoài */
+        transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-10px); /* Di chuyển card lên khi hover */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ mạnh khi hover */
+        }
+
+    /* Tạo khoảng cách giữa các thông báo */
+    .alert {
+        margin-top: 20px;
+        border-radius: 5px; /* Bo tròn các góc thông báo */
+    }
+
+    /* Thay đổi màu sắc tiêu đề card */
+    .card-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #007bff; /* Màu xanh dương cho tiêu đề */
+        text-transform: capitalize; /* Viết hoa chữ cái đầu */
+        margin-bottom: 10px;
+    }
+
+    /* Cải thiện padding và màu nền cho card-body */
+    .card-body {
+        padding: 20px;
+        background-color: #f9f9f9; /* Màu nền sáng cho card */
+        border-radius: 0 0 15px 15px; /* Bo tròn các góc dưới */
+    }
+
+    /* Cải thiện nút button */
+    .btn-outline-primary {
+        border-radius: 25px;
+        padding: 12px 25px;
+        border: 2px solid #007bff;
+        color: #007bff;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        margin-top: 15px;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+            transform: scale(1.05); /* Phóng to nút khi hover */
+        }
+
+    /* Cải thiện hiệu ứng input */
+    .form-control {
+        border-radius: 25px;
+        padding: 12px;
+        border: 2px solid #ddd;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #007bff; /* Đổi màu khi input được focus */
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+        }
+
+    /* Cải thiện lưới sản phẩm */
+    .col-lg-4, .col-md-6, .col-sm-12 {
+        padding-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Định dạng hình ảnh sản phẩm */
+    .card-img-top {
+        height: 250px; /* Cố định chiều cao hình ảnh */
+        object-fit: cover; /* Cắt ảnh theo tỷ lệ */
+        border-bottom: 3px solid #007bff; /* Thêm viền dưới cho hình ảnh */
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .card-img-top:hover {
+            transform: scale(1.1); /* Phóng to hình ảnh khi hover */
+        }
+
+    /* Thêm khoảng cách giữa các phần tử trong card */
+    .card-body p {
+        margin: 10px 0;
+    }
+
+    /* Thêm khoảng cách giữa các card */
+    .row {
+        margin-top: 30px;
+    }
+</style>
+
+
+<!-- Phân trang -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        @if (ViewBag.PageNumber > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?name=@ViewBag.SearchTerm&page=@(ViewBag.PageNumber - 1)">Trước</a>
+            </li>
+        }
+
+        @for (var i = 1; i <= Math.Ceiling((decimal)ViewBag.TotalItems / ViewBag.PageSize); i++)
+        {
+            <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                <a class="page-link" href="?name=@ViewBag.SearchTerm&page=@i">@i</a>
+            </li>
+        }
+
+        @if (ViewBag.PageNumber < Math.Ceiling((decimal)ViewBag.TotalItems / ViewBag.PageSize))
+        {
+            <li class="page-item">
+                <a class="page-link" href="?name=@ViewBag.SearchTerm&page=@(ViewBag.PageNumber + 1)">Tiếp</a>
+            </li>
+        }
+    </ul>
+</nav>

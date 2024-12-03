@@ -32,32 +32,61 @@ namespace Web_Ban_Hang.Controllers
         }
 
 
-        public IActionResult Index(int? page)
+        public IActionResult Index(string name, int? page)
         {
             TempData["UserName"] = HttpContext.Session.GetString("UserName");
             // Lấy vai trò người dùng từ Session
-            var userrole = HttpContext.Session.GetString("UserRole");
-            TempData["UserRole"] = userrole ?? "Guest";
+            var userrole = HttpContext.Session.GetInt32("UserRole");
+            if (userrole == 1)
+            {
+                TempData["UserRole"] = "Admin";
+            }
+            else if (userrole == null)
+            {
+                TempData["UserRole"] = "Guess";
+            }
+            else
+            {
+                TempData["UserRole"] = "Khách";
+            }
+
 
             // Số sản phẩm trên mỗi trang
             int pageSize = 6; // 2 dòng x 3 sản phẩm mỗi dòng
             int pageNumber = page ?? 1; // Trang hiện tại, mặc định là trang 1
 
-            // Lấy danh sách sản phẩm từ database
-            var products = _context.Products
-                .Where(p => p.Quantity > 0) // Chỉ lấy sản phẩm còn hàng
+            // Tạo truy vấn ban đầu cho sản phẩm
+            var query = _context.Products
+                                .Where(p => p.Quantity > 0); // Chỉ lấy sản phẩm còn hàng
+
+            // Nếu có tham số tìm kiếm, áp dụng điều kiện lọc theo tên sản phẩm
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(p => p.ProductName.ToLower().Contains(name.ToLower()));
+            }
+
+            // Lấy danh sách sản phẩm đã phân trang
+            var products = query
                 .Select(p => new Product
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     Price = p.Price,
-                    Image = p.Image
+                    Image = p.Image,
+                    Quantity = p.Quantity // Bao gồm cả số lượng sản phẩm
                 })
                 .ToList()
                 .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang
 
+            // Truyền thông tin phân trang và tìm kiếm vào ViewBag
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = query.Count();
+            ViewBag.SearchTerm = name;
+
             return View(products);
         }
+
 
         public ActionResult Details(Guid id)
         {

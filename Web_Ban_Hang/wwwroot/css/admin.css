@@ -1,52 +1,91 @@
-﻿body {
-}
-
-/* Sidebar Style */
-.sidebar {
-    width: 250px;
+﻿/* Sử dụng Flexbox để căn chỉnh các phần tử trong container */
+body {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
-    transition: width 0.3s ease-in-out;
-    position: fixed;
+    padding-top: 70px; /* Đảm bảo nội dung không bị che khuất bởi navbar */
 }
 
-    .sidebar .nav-link {
-        color: white !important;
+main {
+    flex-grow: 1; /* Giúp phần chính chiếm toàn bộ không gian còn lại */
+}
+
+/* Thêm vào file admin.css hoặc site.css */
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+}
+/* Thêm hiệu ứng chuyển động mượt mà khi di chuyển chuột vào navbar */
+.navbar-nav .nav-link {
+    transition: background-color 0.3s ease;
+}
+    .navbar-nav .nav-link:hover {
+        background-color: #444; /* Thêm hiệu ứng hover */
+        border-radius: 5px;
+
     }
 
-.sidebar-collapsed .sidebar {
-    width: 0;
-    visibility: hidden;
+/* Định dạng Navbar */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng cho navbar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030; /* Đảm bảo navbar luôn ở trên cùng các phần tử khác */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng cho navbar */
+    background-color: #343a40; /* Đảm bảo navbar có màu nền */
+
+}
+/* Thêm khoảng cách cho phần nội dung */
+.container-fluid.mt-5.pt-5 {
+    margin-top: 70px; /* Đảm bảo nội dung không bị che khuất bởi navbar */
+    margin-top: 90px; /* Đảm bảo nội dung không bị che khuất bởi navbar cố định */
 }
 
-/* Adjustments for main content when sidebar is collapsed */
-.sidebar-collapsed + .d-flex.flex-column.flex-grow-1 {
-    margin-left: 0;
+/* Tạo không gian giữa các phần tử chính */
+main {
+    margin-bottom: 30px;
+}
+
+/* Tạo hiệu ứng cho các phần tử khi di chuột */
+.nav-link.active {
+    background-color: #f8f9fa; /* Khi chọn mục menu */
+    color: #333;
+}
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+/* Thêm màu sắc cho thông tin người dùng trong navbar */
+.navbar .nav-item span {
+    font-weight: bold;
+    color: #28a745; /* Màu sắc nổi bật */
+}
+/* Điều chỉnh navbar khi thu nhỏ */
+@media (max-width: 768px) {
+    .navbar-nav {
+        margin-top: 10px;
+    }
+
+        .navbar-nav .nav-link {
+            padding: 8px;
+        }
+}
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+    position: relative;
+    bottom: 0;
     width: 100%;
 }
-
-#sidebarToggle {
-    background-color: #343a40;
-    color: white;
-    border: none;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 0;
-        visibility: hidden;
-    }
-
-    .sidebar-collapsed .sidebar {
-        width: 250px;
-        visibility: visible;
-    }
-
-    .sidebar-collapsed + .d-flex.flex-column.flex-grow-1 {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    #sidebarToggle {
-        display: block;
-    }
+/* Thêm hiệu ứng mượt mà khi cuộn trang */
+html {
+    scroll-behavior: smooth;
 }

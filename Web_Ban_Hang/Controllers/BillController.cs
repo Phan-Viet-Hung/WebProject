@@ -51,7 +51,11 @@ namespace Web_Ban_Hang.Controllers
         public ActionResult Index(string search, int page = 1, int pageSize = 5)
         {
             var query = _context.Bill.Include(b => b.User).AsQueryable(); // Giả sử bạn có quan hệ với User trong Bill
-
+            var userrole = HttpContext.Session.GetInt32("UserRole");
+            if (userrole == 1)
+            {
+                TempData["UserRole"] = "Admin";
+            }
             // Nếu có tham số tìm kiếm, áp dụng điều kiện lọc cho cả tên người dùng, số điện thoại và trạng thái
             if (!string.IsNullOrEmpty(search))
             {
@@ -143,7 +147,7 @@ namespace Web_Ban_Hang.Controllers
             }
 
             // Cập nhật trạng thái hoặc xử lý thanh toán theo paymentMethod
-            bill.Status = "Đã thanh toán";
+            bill.Status = "Paid";
             _context.SaveChanges();
 
             return RedirectToAction("BillDetails", new { id = bill.Id });
